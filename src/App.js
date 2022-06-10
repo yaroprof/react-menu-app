@@ -6,17 +6,31 @@ import items from './data';
 function App() {
 
   const [menuItems, setMenuItems] = useState(items)
-  const[categorie, setCategories] = useState([])
+  const[categories, setCategories] = useState([])
+
+
+  const filterItems = (category) =>{
+    if(category === 'all'){
+      setMenuItems(items)
+      return
+    }
+    // фільтруємо по category, який піднімається від компонента Categories
+    const newItems = items.filter((item) => 
+    item.category === category )
+    setMenuItems(newItems)
+  }
+  
 
   return(
     <main>
-      <section className='menu ection'>
+      <section className='menu section'>
         <div className='title'>
           <h2>our menu</h2>
           <div className='underline'></div>
         </div>
-        <Categories/>
+        <Categories filterItems={filterItems}/>
         <Menu items={menuItems} />
+        
       </section>      
     </main>
   )
